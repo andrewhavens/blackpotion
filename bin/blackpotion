@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require "thor"
+
+class BlackPotionCLI < Thor
+  include Thor::Actions
+
+  source_root File.join(File.dirname(__FILE__), "templates")
+
+  desc "new APP_NAME", "Generate a new BlackPotion app."
+  argument :app_name
+  def new
+    # template "new", app_name # FIXME
+    template "new/app/app_delegate.rb", "#{app_name}/app/app_delegate.rb"
+    template "new/Gemfile", "#{app_name}/Gemfile"
+    template "new/Rakefile", "#{app_name}/Rakefile"
+    template "new/README.md", "#{app_name}/README.md"
+  end
+end
+
+BlackPotionCLI.start(ARGV)
