@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+$:.unshift('/Library/RubyMotion/lib')
+require 'motion/project/template/tvos'
+
+require 'bundler'
+Bundler.require
+
+Motion::Project::App.setup do |app|
+  # Use `rake config' to see complete project settings.
+  app.name = '<%= app_name %>'
+  app.identifier = 'com.your_domain_here.<%= app_name %>'
+  app.entitlements['application-identifier'] = app.seed_id + '.' + app.identifier
+
+  app.short_version = '0.1.0'
+  # Get version from git
+  # app.version = (`git rev-list HEAD --count`.strip.to_i).to_s
+  app.version = app.short_version
+
+  app.frameworks << "TVMLKit"
+
+  app.development do
+    # Allow insecure http:// protocol for localhost
+    app.info_plist['NSAppTransportSecurity'] = { 'NSAllowsArbitraryLoads' => true }
+  end
+end
